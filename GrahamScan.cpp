@@ -30,17 +30,11 @@ struct myless {
 		return arr[a].Y < arr[b].Y;
 	}
 };
-bool isUShell(int a, int b, int c) {
+bool isShell(int a, int b, int c) {
 	line t(arr[a], arr[c]);
 	if (t.is_under(arr[b]))
 		return false;
 	return true;
-}
-bool isLShell(int a, int b, int c) {
-	line t(arr[a], arr[c]);
-	if (t.is_under(arr[b]))
-		return true;
-	return false;
 }
 int main() {
 	int n;
@@ -77,7 +71,7 @@ int main() {
 	vector <int> uS; //upperShell // I may be a #&*?, because of repeated code, but I'm too lazy to think and make everything nice<3
 	for (auto i : upper) {
 		if (uS.size() > 3) {
-			if (isUShell(uS[*(uS.end() - 2)], uS[*(uS.end() - 1)], i))
+			if (isShell(uS[*(uS.end() - 2)], uS[*(uS.end() - 1)], i))
 				uS.push_back(i);
 			else {
 				uS.erase(uS.end() - 1);
@@ -91,7 +85,7 @@ int main() {
 	lower.insert(right_one);
 	for (auto i : lower) {
 		if (lS.size() > 3) {
-			if (isLShell(lS[*(lS.end() - 2)], lS[*(lS.end() - 1)], i))
+			if (!isShell(lS[*(lS.end() - 2)], lS[*(lS.end() - 1)], i))
 				lS.push_back(i);
 			else {
 				lS.erase(lS.end() - 1);
