@@ -1,0 +1,78 @@
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+class vector {
+	T *arr;
+	int arr_size;
+public:
+	vector() {
+		arr = new T[0];
+		arr_size = 0;
+	}
+
+	vector(int newSize, T el = NULL) {
+		arr = new T[newSize] {el};
+		arr_size = newSize;
+	}
+
+	void push_back(T a) {
+		T *temp = new T[arr_size + 1];
+		for (int i = 0; i < arr_size; ++i)
+			temp[i] = arr[i];
+		temp[arr_size] = a;
+		delete[] arr;
+		arr = temp;
+		arr_size++;
+	}
+
+	void resize(int newSize, T el = 0) {
+		T *temp = new T[newSize] {el};
+		delete[] arr;
+		arr = temp;
+		arr_size = newSize;
+	}
+
+	bool empty() {
+		return !(bool)arr_size;
+	}
+
+	int size() {
+		return arr_size;
+	}
+
+	T &operator[](int i) {
+		return arr[i];
+	}
+
+	vector &operator=(vector &A) {
+		int newSize = A.arr_size;
+		T *temp = new T[newSize];
+		for (int i = 0; i < newSize; ++i)
+			temp[i] = A[i];
+		delete[] arr;
+		arr = temp;
+	}
+
+	~vector() {
+		delete[] arr;
+		arr_size = NULL;
+	}
+};
+
+int main() {
+	vector <int>  A(10);
+	for (int i = 0; i < A.size(); ++i) {
+		cout << A[i] << " ";
+	}
+	cout << endl;
+	A[2] = 1;
+	A.resize(4, 1);
+	A.push_back(17);
+	for (int i = 0; i < A.size(); ++i) {
+		cout << A[i] << " ";
+	}
+	system("pause");
+	return 0;
+}
